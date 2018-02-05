@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Model> Sublist;
     private ArrayAdapter<Model> adapter;
     private Double Charge = 0.0;
+    private int Number = 0;
     private int Position;
     /**
      * Called when the activity is first created.
@@ -91,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
 
                 Sublist.remove(position);
                 TextView charge = (TextView) findViewById(R.id.money);
-                if (Sublist.size() == 0){Charge = 0.0;}
+                if (Sublist.size() == 0){Charge = 0.0; Number = 0;}
+                TextView sum = (TextView) findViewById(R.id.Total);
+                sum.setText("Number of subscribe:" + Number);
                 charge.setText("TotalCharge:$" + Charge);
                 adapter.notifyDataSetChanged();
                 Calculate();
@@ -130,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
 
             Calculate();
             TextView charge = (TextView) findViewById(R.id.money);
+            TextView sum = (TextView) findViewById(R.id.Total);
+            sum.setText("Number of subscribe:" + Number);
             charge.setText("TotalCharge:$" + Charge);
             adapter.notifyDataSetChanged();
             saveInFile();
@@ -147,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
 
             Calculate();
             TextView charge = (TextView) findViewById(R.id.money);
+            TextView sum = (TextView) findViewById(R.id.Total);
+            sum.setText("Number of subscribe:" + Number);
             charge.setText("TotalCharge:$" + Charge);
             adapter.notifyDataSetChanged();
             saveInFile();
@@ -201,15 +208,17 @@ public class MainActivity extends AppCompatActivity {
 
     // calculate the amount of monthly charge
     public void Calculate() {
-        int num = Sublist.size();
+        int Number = Sublist.size();
         Double Charge = 0.0;
-        for (int i = 0; i < num; i = i + 1) {
-            if (num == 0){break;}
+        for (int i = 0; i < Number; i = i + 1) {
+            if (Number == 0){break;}
             Model model = Sublist.get(i);
             String price = model.getPrice();
             Double Price = Double.valueOf(price).doubleValue();
             Charge = Charge + Price;
             TextView charge = (TextView) findViewById(R.id.money);
+            TextView sum = (TextView) findViewById(R.id.Total);
+            sum.setText("Number of subscribe:" + Number);
             charge.setText("TotalCharge:$" + Charge);
             adapter.notifyDataSetChanged();
         }
@@ -229,14 +238,16 @@ public class MainActivity extends AppCompatActivity {
         SubscribeList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        int num = Sublist.size();
+        int Number = Sublist.size();
         Double Charge = 0.0;
-        for (int i = 0; i < num; i = i + 1) {
+        for (int i = 0; i < Number; i = i + 1) {
             Model model = Sublist.get(i);
             String price = model.getPrice();
             Double Price = Double.valueOf(price).doubleValue();
             Charge = Charge + Price;
             TextView charge = (TextView) findViewById(R.id.money);
+            TextView sum = (TextView) findViewById(R.id.Total);
+            sum.setText("Number of subscribe:" + Number);
             charge.setText("TotalCharge:$" + Charge);
         }
 

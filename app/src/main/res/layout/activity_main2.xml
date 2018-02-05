@@ -8,6 +8,7 @@
 
     <EditText
         android:id="@+id/Name"
+        android:maxLength="20"
         android:layout_width="265dp"
         android:layout_height="42dp"
         android:layout_marginBottom="421dp"
@@ -53,6 +54,7 @@
 
     <EditText
         android:id="@+id/comments"
+        android:maxLength="30"
         android:layout_width="265dp"
         android:layout_height="46dp"
         android:layout_marginBottom="260dp"
@@ -118,4 +120,5 @@
         android:text="Date:"
         app:layout_constraintBaseline_toBaselineOf="@+id/Date"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

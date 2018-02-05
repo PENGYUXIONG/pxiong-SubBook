@@ -32,7 +32,6 @@ public class Activity3 extends AppCompatActivity implements View.OnClickListener
         add.setOnClickListener(this);
         Intent intent = getIntent();
         Model model = new Gson().fromJson(intent.getStringExtra("model"), Model.class);
-        Log.i("LifeCycle --->", model.toString());
         name.setText(model.name);
         price.setText(model.price);
         comments.setText(model.comments);

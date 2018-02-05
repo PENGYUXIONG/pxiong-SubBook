@@ -36,13 +36,12 @@ import javax.xml.transform.Result;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final String FILENAME = "Subbook.sav";
+    private static final String FILENAME = "tweets.sav";
     private ListView SubscribeList;
     private ArrayList<Model> Sublist;
     private ArrayAdapter<Model> adapter;
     public Double Charge = 0.0;
     public int Position;
-
     /**
      * Called when the activity is first created.
      */
@@ -54,13 +53,9 @@ public class MainActivity extends AppCompatActivity {
         Button addButton = (Button) findViewById(R.id.add);
         SubscribeList = (ListView) findViewById(R.id.SubscribeList);
 
-
-
         Sublist = new ArrayList<Model>();
-        adapter = new ArrayAdapter<Model>(this,R.layout.list_item, Sublist);
+        adapter = new ArrayAdapter<Model>(this, R.layout.list_item, Sublist);
         SubscribeList.setAdapter(adapter);
-
-
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -68,24 +63,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Activity2.class);
                 MainActivity.this.startActivityForResult(intent, Activity2.request);
-
             }
         });
 
 
         SubscribeList.setDividerHeight(3);
-        SubscribeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        SubscribeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view,
-                                  int position, long item) {
-                Model model = Sublist.get(position);
-                String price = model.getPrice();
-                Double Price = Double.valueOf(price).doubleValue();
+                                           int position, long item) {
+
                 Sublist.remove(position);
-                Charge = Charge - Price;
                 TextView charge = (TextView) findViewById(R.id.money);
-                charge.setText("TotalCharge:" + Charge);
+                if (Sublist.size() == 0){Charge = 0.0;}
+                charge.setText("TotalCharge:$" + Charge);
                 adapter.notifyDataSetChanged();
+                Calculate();
+                saveInFile();
                 return true;
             }
         });
@@ -103,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 2 && resultCode == RESULT_OK) {
@@ -113,15 +108,12 @@ public class MainActivity extends AppCompatActivity {
             this.Sublist.remove(Position);
             this.Sublist.add(Position, model);
 
-            String price = model.getPrice();
-            String oldprice = oldmodel.getPrice();
-            Double Price = Double.valueOf(price).doubleValue();
-            Double oldPrice = Double.valueOf(oldprice).doubleValue();
-            Charge = Charge+Price;
-            Charge = Charge - oldPrice;
+
+            Calculate();
             TextView charge = (TextView) findViewById(R.id.money);
-            charge.setText("TotalCharge:" + Charge);
+            charge.setText("TotalCharge:$" + Charge);
             adapter.notifyDataSetChanged();
+            saveInFile();
             setResult(RESULT_OK, intent);
         }
 
@@ -129,17 +121,96 @@ public class MainActivity extends AppCompatActivity {
             Model model = new Gson().fromJson(intent.getStringExtra("model"), Model.class);
             this.Sublist.add(model);
 
-            String price = model.getPrice();
-            Double Price = Double.valueOf(price).doubleValue();
-            Charge = Charge+Price;
+
+            Calculate();
             TextView charge = (TextView) findViewById(R.id.money);
-            charge.setText("TotalCharge:" + Charge);
+            charge.setText("TotalCharge:$" + Charge);
             adapter.notifyDataSetChanged();
+            saveInFile();
             setResult(RESULT_OK, intent);
         }
     }
 
 
+    private void loadFromFile() {
 
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+
+            // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            // 2018-01-23
+            Type listType = new TypeToken<ArrayList<Model>>(){}.getType();
+            Sublist = gson.fromJson(in, listType);
+
+        } catch (FileNotFoundException e) {
+            Sublist = new ArrayList<Model>();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+
+    }
+
+    private void saveInFile() {
+        try {
+
+            FileOutputStream fos = openFileOutput(FILENAME,
+                    Context.MODE_PRIVATE);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+
+            Gson gson = new Gson();
+            gson.toJson(Sublist, out);
+            out.flush();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+    }
+
+    public void Calculate() {
+        int num = Sublist.size();
+        Double Charge = 0.0;
+        for (int i = 0; i < num; i = i + 1) {
+            if (num == 0){break;}
+            Model model = Sublist.get(i);
+            String price = model.getPrice();
+            Double Price = Double.valueOf(price).doubleValue();
+            Charge = Charge + Price;
+            TextView charge = (TextView) findViewById(R.id.money);
+            charge.setText("TotalCharge:$" + Charge);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+
+        // TODO Auto-generated method stub
+        super.onStart();
+        Log.i("LifeCycle --->", "onStart is called");
+        loadFromFile();
+
+        adapter = new ArrayAdapter<Model>(this, R.layout.list_item, Sublist);
+        SubscribeList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        int num = Sublist.size();
+        Double Charge = 0.0;
+        for (int i = 0; i < num; i = i + 1) {
+            Model model = Sublist.get(i);
+            String price = model.getPrice();
+            Double Price = Double.valueOf(price).doubleValue();
+            Charge = Charge + Price;
+            TextView charge = (TextView) findViewById(R.id.money);
+            charge.setText("TotalCharge:$" + Charge);
+        }
+
+    }
 
 }

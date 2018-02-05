@@ -39,6 +39,9 @@ public class Model {
         this.name = name;
     }
 
+    public Model(){
+        super();
+    }
 
     public String getName(){
         return name;
@@ -46,6 +49,7 @@ public class Model {
 
     public void setName(String name){
         this.name = name;
+
     }
 
     public String getPrice(){
@@ -72,7 +76,7 @@ public class Model {
 
     @Override
     public String toString(){
-        return "Name:"+name + "\n" +"Price:"+price + "\n" + "comments:"+comments +
-                "\n"+"Date" + date;
+        return "Name:"+name + "\n" +"Monthly Charged:$"+price + "\n" + "comments:"+comments +
+                "\n"+"Date:" + date;
     }
 }

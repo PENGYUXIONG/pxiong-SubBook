@@ -52,4 +52,5 @@ public class Activity2 extends AppCompatActivity implements View.OnClickListener
         finish();
     }
 
+
 }

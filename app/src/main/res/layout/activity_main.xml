@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        android:text="SubscribeList"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/SubscribeList"
+        android:layout_width="fill_parent"
+        android:layout_height="377dp"
+        android:layout_weight='1'
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:background="@color/colorBlack"
+        android:textColor="@color/colorWhite"
+        />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="add" />
+
+
+</LinearLayout>

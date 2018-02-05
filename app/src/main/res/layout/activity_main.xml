@@ -22,6 +22,15 @@
         android:scrollbars="vertical" />
 
     <TextView
+        android:id="@+id/Total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        android:text="Number of subscribe:"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/money"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

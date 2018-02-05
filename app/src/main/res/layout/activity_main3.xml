@@ -8,6 +8,7 @@
 
     <EditText
         android:id="@+id/Name"
+        android:maxLength="20"
         android:layout_width="265dp"
         android:layout_height="42dp"
         android:layout_marginBottom="421dp"
@@ -44,7 +45,7 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="22dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/imageButton2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +54,7 @@
 
     <EditText
         android:id="@+id/comments"
+        android:maxLength="30"
         android:layout_width="265dp"
         android:layout_height="46dp"
         android:layout_marginBottom="260dp"
@@ -69,6 +71,7 @@
 
     <EditText
         android:id="@+id/Date"
+        android:maxLength="10"
         android:layout_width="265dp"
         android:layout_height="52dp"
         android:layout_marginBottom="128dp"
@@ -76,7 +79,7 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="29dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/imageButton2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

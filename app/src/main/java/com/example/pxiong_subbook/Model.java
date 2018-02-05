@@ -1,18 +1,29 @@
+/*
+ * Model
+ *
+ * Version 1.0
+ *
+ * January 30, 2018
+ *
+ * Copyright (c) 2018 Pengyu Xiong CMPUT301, University of Alberta - All Rights Reserved.
+ * You may use, distribute, or modify this code under terms and condition of the Code of Student Behaviour at University of Alberta.
+ * You can find a copy of the license in this project. Otherwise please contact pxiong@ualberta.ca
+ */
 package com.example.pxiong_subbook;
 
-import java.util.Date;
 
 /**
  * Created by rick on 03/02/2018.
  */
 
 public class Model {
+    //Create an object consist of following elements
     public String name;
     public String price;
     public String comments;
     public String date;
 
-
+    //Object can be formed by following constructs
     public Model(String name, String price, String comments, String date){
         super();
         this.name = name;
@@ -21,28 +32,15 @@ public class Model {
         this.date = date;
     }
 
-    public Model(String name, String price, String comments){
+    public Model(String name, String price, String date){
         super();
         this.name = name;
         this.price = price;
-        this.comments = comments;
+        this.date = date;
     }
 
-    public Model(String name, String price){
-        super();
-        this.name = name;
-        this.price = price;
-    }
 
-    public Model(String name){
-        super();
-        this.name = name;
-    }
-
-    public Model(){
-        super();
-    }
-
+    //Ask for return value
     public String getName(){
         return name;
     }
@@ -73,7 +71,7 @@ public class Model {
     public void setDate(String date){
         this.date = date;
     }
-
+    //The format of the listview item.
     @Override
     public String toString(){
         return "Name:"+name + "\n" +"Monthly Charged:$"+price + "\n" + "comments:"+comments +

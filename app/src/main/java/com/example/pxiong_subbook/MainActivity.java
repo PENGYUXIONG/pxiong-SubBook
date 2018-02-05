@@ -1,6 +1,16 @@
+/*
+ * MainActivity
+ *
+ * Version 1.0
+ *
+ * January 30, 2018
+ *
+ * Copyright (c) 2018 Pengyu Xiong CMPUT301, University of Alberta - All Rights Reserved.
+ * You may use, distribute, or modify this code under terms and condition of the Code of Student Behaviour at University of Alberta.
+ * You can find a copy of the license in this project. Otherwise please contact pxiong@ualberta.ca
+ */
 package com.example.pxiong_subbook;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import java.io.BufferedReader;
@@ -11,37 +21,36 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javax.xml.transform.Result;
 
 
 public class MainActivity extends AppCompatActivity {
+    /*
+    * Hold private variables for the encapulationa and in order
+    * to gte the position of the last listview item keep its position
+    * in the arraylist.
+     */
     private static final String FILENAME = "tweets.sav";
     private ListView SubscribeList;
     private ArrayList<Model> Sublist;
     private ArrayAdapter<Model> adapter;
-    public Double Charge = 0.0;
-    public int Position;
+    private Double Charge = 0.0;
+    private int Position;
     /**
      * Called when the activity is first created.
      */
@@ -57,7 +66,11 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<Model>(this, R.layout.list_item, Sublist);
         SubscribeList.setAdapter(adapter);
 
-
+        /*
+        * if the add button is clicked start the new activity
+        * give the result and check variable set value to make sure it is correct
+        * path
+         */
         addButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -66,7 +79,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
+        * if the item in the list view is hold for 3 seconds then delete it
+        * use the onitemlistener to check
+         */
         SubscribeList.setDividerHeight(3);
         SubscribeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -84,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // if clicked the item in the list view then enter the detail activity
         SubscribeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view,
@@ -100,8 +116,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // check whether the result code matched in this case: check if the intent path is correct
+    // avoid take null object
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        // edit path confirmed
         if (requestCode == 2 && resultCode == RESULT_OK) {
             Model model = new Gson().fromJson(intent.getStringExtra("model"), Model.class);
             Model oldmodel = Sublist.get(Position);
@@ -116,7 +135,11 @@ public class MainActivity extends AppCompatActivity {
             saveInFile();
             setResult(RESULT_OK, intent);
         }
-
+        /*
+        *add path confirmed
+        *  use gson to Json to transform object to Stringa, String to object and receive
+        *  or send the object between activities
+         */
         if (requestCode == 1 && resultCode == RESULT_OK) {
             Model model = new Gson().fromJson(intent.getStringExtra("model"), Model.class);
             this.Sublist.add(model);
@@ -131,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    // Taken fromn lonlyTweeter project class
+    // 2018 Feb 2
     private void loadFromFile() {
 
         try {
@@ -153,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Taken from lonly tweeter project from class
+    // 2018 Feb 2
     private void saveInFile() {
         try {
 
@@ -173,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // calculate the amount of monthly charge
     public void Calculate() {
         int num = Sublist.size();
         Double Charge = 0.0;
@@ -188,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //part of it from inclass project lonly tweeter
+    // used to save arraylist
     @Override
     protected void onStart() {
 

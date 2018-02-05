@@ -79,7 +79,7 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="29dp"
         android:ems="10"
-        android:inputType="numberDecimal"
+        android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/imageButton2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

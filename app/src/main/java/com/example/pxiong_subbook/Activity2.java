@@ -65,15 +65,23 @@ public class Activity2 extends AppCompatActivity implements View.OnClickListener
         // idea from https://stackoverflow.com/questions/6290531/check-if-edittext-is-empty
         //2018 Feb. 4
         if (Name.matches("")) {
-            Toast.makeText(this, "You did not enter a name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "You did not enter a name", Toast.LENGTH_SHORT).show();
             return;
         }
         if (Price.matches("")) {
-            Toast.makeText(this, "You did not enter a price", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "You did not enter a price", Toast.LENGTH_SHORT).show();
             return;
         }
         if (Date.matches("")) {
-            Toast.makeText(this, "You did not enter a date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "You did not enter a date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (Date.length() != 10 && Date.length() >0) {
+            Toast.makeText(this,
+                    "date format not valid", Toast.LENGTH_SHORT).show();
             return;
         }
 
